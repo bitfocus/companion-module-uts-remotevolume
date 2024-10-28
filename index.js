@@ -3,6 +3,7 @@ import { ConfigFields } from './config.js'
 import { getActionDefinitions } from './actions.js'
 import { variables } from './variables.js'
 import { getFeedbackDefinitions } from './feedbacks.js'
+import { getPresetDefinitions } from './presets.js'
 import WebSocket from 'ws'
 
 class HDMIVideoWallProcessor extends InstanceBase {
@@ -18,9 +19,9 @@ class HDMIVideoWallProcessor extends InstanceBase {
 
 		this.initWebSocket()
 		this.isInitialized = true
-
 		this.setActionDefinitions(getActionDefinitions(this))
 		this.setFeedbackDefinitions(getFeedbackDefinitions(this))
+		this.setPresetDefinitions(getPresetDefinitions(this))
 	}
 
 	async destroy() {
