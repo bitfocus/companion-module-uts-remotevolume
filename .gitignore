@@ -1,0 +1,6 @@
+/pkg
+/node_modules
+.DS_STORE
+pkg.tgz
+yarn.lock
+.prettierrc
