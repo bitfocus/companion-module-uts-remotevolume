@@ -15,13 +15,13 @@ class HDMIVideoWallProcessor extends InstanceBase {
 		this.config = config
 		this.muted = null
 
+		this.setActionDefinitions(getActionDefinitions(this))
+		this.setFeedbackDefinitions(getFeedbackDefinitions(this))
+		this.setPresetDefinitions(getPresetDefinitions(this))
 		this.setVariableDefinitions(variables)
 
 		this.initWebSocket()
 		this.isInitialized = true
-		this.setActionDefinitions(getActionDefinitions(this))
-		this.setFeedbackDefinitions(getFeedbackDefinitions(this))
-		this.setPresetDefinitions(getPresetDefinitions(this))
 	}
 
 	async destroy() {
@@ -43,12 +43,10 @@ class HDMIVideoWallProcessor extends InstanceBase {
 
 	maybeReconnect() {
 		if (this.isInitialized && this.config.reconnect) {
-			// Clear the reconnect timer if it exists
 			if (this.reconnectTimer) {
 				clearInterval(this.reconnectTimer)
 			}
 
-			// Set up a new reconnect interval
 			this.reconnectTimer = setInterval(() => {
 				this.initWebSocket()
 			}, this.reconnectInterval)
@@ -56,7 +54,6 @@ class HDMIVideoWallProcessor extends InstanceBase {
 	}
 
 	initWebSocket() {
-		// Clear the reconnect timer
 		if (this.reconnectTimer) {
 			clearInterval(this.reconnectTimer)
 			this.reconnectTimer = null
@@ -81,7 +78,7 @@ class HDMIVideoWallProcessor extends InstanceBase {
 
 		this.ws.addEventListener('open', () => {
 			this.updateStatus(InstanceStatus.Ok)
-			// Clear the reconnect timer upon successful connection
+
 			if (this.reconnectTimer) {
 				clearInterval(this.reconnectTimer)
 				this.reconnectTimer = null
@@ -172,33 +169,28 @@ class HDMIVideoWallProcessor extends InstanceBase {
 	async messageReceivedFromWebSocket(event) {
 		if (event && event.data) {
 			let msgValue = null
-			let textData = '' // Initialize textData to hold the string representation
+			let textData = ''
 
 			try {
-				// Check if event.data is a Blob and read it as text
 				if (event.data instanceof Blob) {
-					textData = await event.data.text() // Read the Blob as text
+					textData = await event.data.text()
 				} else {
-					textData = event.data // Otherwise, use it directly
+					textData = event.data
 				}
 
-				// Log the raw text data for debugging
 				console.log('Raw message data:', textData)
 
-				// Parse JSON if it is a valid JSON string
 				if (textData.trim()) {
-					// Ensure it's not just empty
 					msgValue = JSON.parse(textData)
 					console.log('Parsed message data:', msgValue)
 
-					// Pass parsed data to parsePowerPointStatus
 					this.parsePowerPointStatus(msgValue)
 				} else {
 					console.error('Received empty or invalid JSON string.')
 				}
 			} catch (e) {
 				console.error('Error parsing JSON:', e)
-				console.error('Raw text data:', textData) // Log the raw text data for further inspection
+				console.error('Raw text data:', textData)
 			}
 		} else {
 			console.error('Received event with no data:', event)
