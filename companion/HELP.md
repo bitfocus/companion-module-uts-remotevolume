@@ -7,7 +7,7 @@ For this module to work, a helper application must be installed on all PCs that 
 You can download the latest release of the helper application, called [Remote Volume](https://github.com/ultimategmbh/remote-volume/releases/latest) from the UTS GitHub releases page. The link will always get you to the latest version.
 
 - For Windows: Download and install the .exe file.
-- For OSX: Download the corresponding .dmg file (x64 for Intel processors or ARM for Apple M Pr ocessors.)
+- For OSX: Download the corresponding .dmg file (x64 for Intel processors or ARM for Apple M Processors.), open the .dmg and drag&drop the app into your applications folder.
 - For Linux: Download and install the .deb file
 
 After the Remote Volume application is installed, make sure that the application is running in the background, to ensure that Companion can connect to the application.
