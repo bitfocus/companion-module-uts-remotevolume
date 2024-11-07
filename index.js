@@ -156,7 +156,6 @@ class HDMIVideoWallProcessor extends InstanceBase {
 			})
 		}
 		if ('volume' in data) {
-			this.log('debug', 'Got volume!')
 			this.volume = data.volume
 			this.setVariableValues({
 				volume: this.volume,
@@ -178,11 +177,8 @@ class HDMIVideoWallProcessor extends InstanceBase {
 					textData = event.data
 				}
 
-				console.log('Raw message data:', textData)
-
 				if (textData.trim()) {
 					msgValue = JSON.parse(textData)
-					console.log('Parsed message data:', msgValue)
 
 					this.parsePowerPointStatus(msgValue)
 				} else {
