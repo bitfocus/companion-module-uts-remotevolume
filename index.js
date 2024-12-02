@@ -148,7 +148,15 @@ class HDMIVideoWallProcessor extends InstanceBase {
 		)
 	}
 
-	parsePowerPointStatus(data) {
+	getState() {
+		this.ws.send(
+			JSON.stringify({
+				action: 'getState',
+			})
+		)
+	}
+
+	parseStateObject(data) {
 		if ('muted' in data) {
 			this.muted = data.muted
 			this.setVariableValues({
@@ -159,6 +167,12 @@ class HDMIVideoWallProcessor extends InstanceBase {
 			this.volume = data.volume
 			this.setVariableValues({
 				volume: this.volume,
+			})
+		}
+		if ('outputDevice' in data) {
+			this.outputDevice = data.outputDevice
+			this.setVariableValues({
+				output_audio_device_name: this.outputDevice,
 			})
 		}
 
@@ -180,7 +194,7 @@ class HDMIVideoWallProcessor extends InstanceBase {
 				if (textData.trim()) {
 					msgValue = JSON.parse(textData)
 
-					this.parsePowerPointStatus(msgValue)
+					this.parseStateObject(msgValue)
 				} else {
 					console.error('Received empty or invalid JSON string.')
 				}

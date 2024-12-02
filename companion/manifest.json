@@ -3,7 +3,7 @@
 	"name": "uts-remotevolume",
 	"shortname": "Remote Volume",
 	"description": "Remote control the volume of Macs, Windows and Linux PCs",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"license": "MIT",
 	"repository": "git+https://github.com/bitfocus/companion-module-uts-remotevolume.git",
 	"bugs": "https://github.com/bitfocus/companion-module-uts-remotevolume/issues",
