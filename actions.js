@@ -80,5 +80,13 @@ export function getActionDefinitions(self) {
 				}
 			},
 		},
+		getState: {
+			name: 'Get latest Data',
+			description: 'Retrieve the latest information manually if polling is disabled',
+			options: [],
+			callback: async (action) => {
+				self.getState()
+			},
+		},
 	}
 }
